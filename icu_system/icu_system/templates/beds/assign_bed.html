@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block title %}Assign ICU Bed - ICU Bed Management System{% endblock %}
+
+{% block content %}
+<style>
+    /* Form elements */
+    .form-control:focus, .form-select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    /* Card styling */
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    /* Button styling */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #f8f9fa;
+        border-color: #6c757d;
+    }
+
+    /* Form labels */
+    .form-label {
+        font-weight: bold;
+    }
+
+    /* Error messages */
+    .text-danger {
+        font-size: 0.9rem;
+    }
+
+    /* Page layout */
+    .row {
+        margin-bottom: 1rem;
+    }
+
+    .alert-info {
+        font-size: 0.95rem;
+        background-color: #e9f7fd;
+        border-color: #bee5eb;
+        color: #0c5460;
+    }
+
+    /* Submit button spacing */
+    .mt-4 {
+        margin-top: 1.5rem !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header bg-new text-white">
+                <h3 class="mb-0">Assign ICU Bed to a Patient</h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info mb-4">
+                    <p><strong>Admin Assignment:</strong> This form allows administrators to directly assign an ICU bed to a patient, bypassing the normal booking process.</p>
+                </div>
+                
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.bed.id_for_label }}" class="form-label">Select ICU Bed *</label>
+                            {{ form.bed.as_widget }}
+                            {% if form.bed.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.bed.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.start_date.id_for_label }}" class="form-label">Admission Date *</label>
+                            {{ form.start_date.as_widget }}
+                            {% if form.start_date.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.start_date.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <h4 class="mt-4 mb-3">Patient Information</h4>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.patient_name.id_for_label }}" class="form-label">Patient Full Name *</label>
+                            {{ form.patient_name.as_widget }}
+                            {% if form.patient_name.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.patient_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.patient_age.id_for_label }}" class="form-label">Patient Age *</label>
+                            {{ form.patient_age.as_widget }}
+                            {% if form.patient_age.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.patient_age.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.patient_gender.id_for_label }}" class="form-label">Patient Gender *</label>
+                            {{ form.patient_gender.as_widget }}
+                            {% if form.patient_gender.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.patient_gender.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.contact_number.id_for_label }}" class="form-label">Contact Number *</label>
+                            {{ form.contact_number.as_widget }}
+                            {% if form.contact_number.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.contact_number.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.medical_condition.id_for_label }}" class="form-label">Medical Condition/Reason for ICU Admission *</label>
+                        {{ form.medical_condition.as_widget }}
+                        {% if form.medical_condition.errors %}
+                            <div class="text-danger">
+                                {% for error in form.medical_condition.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.status.id_for_label }}" class="form-label">Booking Status *</label>
+                        {{ form.status.as_widget }}
+                        {% if form.status.errors %}
+                            <div class="text-danger">
+                                {% for error in form.status.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">Assign Bed</button>
+                        <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

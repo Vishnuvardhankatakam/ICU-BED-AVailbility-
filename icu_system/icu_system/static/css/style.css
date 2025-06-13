@@ -1,0 +1,84 @@
+/* Custom styling for ICU Bed Management System */
+
+/* Dashboard stats */
+.feature-icon {
+    width: 3rem;
+    height: 3rem;
+    color: #fd810d;
+}
+
+/* Card styling */
+.card {
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+/* Profile picture placeholder */
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+}
+
+/* Footer */
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+/* Table adjustments */
+.table-responsive {
+    border-radius: 0.25rem;
+}
+
+/* Form elements */
+.form-control:focus, .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Status colors */
+.status-pending {
+    color: #ffc107;
+}
+
+.status-confirmed {
+    color: #198754;
+}
+
+.status-cancelled {
+    color: #dc3545;
+}
+
+.status-completed {
+    color: #0dcaf0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .card-title {
+        font-size: 1.25rem;
+    }
+}

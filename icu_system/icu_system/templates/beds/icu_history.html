@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}ICU Usage History - ICU Bed Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">ICU Usage History</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h3 class="mb-0">Complete ICU History</h3>
+            </div>
+            <div class="card-body">
+                {% if histories %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Bed Number</th>
+                                    <th>Bed Type</th>
+                                    <th>Patient Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Admitted Date</th>
+                                    <th>Discharged Date</th>
+                                    <th>Duration (Days)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for history in histories %}
+                                    <tr>
+                                        <td>{{ history.bed.bed_number }}</td>
+                                        <td>{{ history.bed.get_bed_type_display }}</td>
+                                        <td>{{ history.patient_name }}</td>
+                                        <td>{{ history.patient_age }}</td>
+                                        <td>{{ history.get_patient_gender_display }}</td>
+                                        <td>{{ history.admitted_date|date:"M d, Y" }}</td>
+                                        <td>{{ history.discharged_date|date:"M d, Y"|default:"--" }}</td>
+                                        <td>
+                                            {% if history.discharged_date %}
+                                                {{ history.discharged_date|timeuntil:history.admitted_date }}
+                                            {% else %}
+                                                Still admitted
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        No ICU history records found.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h3 class="mb-0">ICU Usage Analytics</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h4>Total ICU Admissions</h4>
+                                <h2>{{ histories|length }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h4>Current Occupancy Rate</h4>
+                                <h2>
+                                    {% with total=bed_count occupied=occupied_count %}
+                                        {% if total > 0 %}
+                                            {{ occupied|floatformat:0 }}%
+                                        {% else %}
+                                            0%
+                                        {% endif %}
+                                    {% endwith %}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h4>Average Stay Duration</h4>
+                                <h2>
+                                    {% with completed=completed_histories %}
+                                        {% if completed %}
+                                            {{ avg_duration|floatformat:1 }} days
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    {% endwith %}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

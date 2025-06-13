@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - ICU Bed Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h1 class="display-4 mb-4">Welcome to ICU Bed Management System</h1>
+        <p class="lead">A real-time ICU bed availability and booking system</p>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card h-100 feature-card">
+            <div class="card-body text-center">
+                <i data-feather="monitor" class="feature-icon mb-3"></i>
+                <h3>Real-time Availability</h3>
+                <p>Check the availability of ICU beds in real-time across various departments.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 feature-card">
+            <div class="card-body text-center">
+                <i data-feather="calendar" class="feature-icon mb-3"></i>
+                <h3>Easy Booking</h3>
+                <p>Book available ICU beds for patients with just a few clicks.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 feature-card">
+            <div class="card-body text-center">
+                <i data-feather="clock" class="feature-icon mb-3"></i>
+                <h3>Booking History</h3>
+                <p>Keep track of all your ICU bed bookings and their status.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.feature-card {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: scale(1.05);
+    background-color: #f8f9fa;
+}
+</style>
+
+<div class="row mt-5">
+    <div class="col-md-6 offset-md-3 text-center">
+        {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="btn btn-danger btn-lg">Go to Dashboard</a>
+        {% else %}
+            <p>Please login or create an account to access the system</p>
+            <div class="mt-3">
+                <a href="{% url 'login' %}" class="btn btn-outline-danger me-2">Login</a>
+                <a href="{% url 'register' %}" class="btn btn-outline-danger">Register</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h3 class="mb-0">About the System</h3>
+            </div>
+            <div class="card-body">
+                <p>The ICU Bed Management System is designed to streamline the process of managing and booking ICU beds in healthcare facilities. It provides real-time information about bed availability, enabling efficient allocation of critical care resources.</p>
+                
+                <h4 class="mt-4">Key Features:</h4>
+                <ul>
+                    <li>Real-time tracking of ICU bed availability</li>
+                    <li>User-friendly booking interface for patients and staff</li>
+                    <li>Comprehensive booking history and ICU usage records</li>
+                    <li>Administrative tools for bed management and assignments</li>
+                    <li>Secure and role-based access control</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
